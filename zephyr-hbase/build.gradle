@@ -1,0 +1,31 @@
+description = 'zephyr-hbase'
+
+version = '0.0.1-SNAPSHOT'
+
+apply plugin: 'maven'
+apply plugin: 'java'
+targetCompatibility = 1.6
+sourceCompatibility = 1.6
+
+repositories {
+    mavenLocal()
+    mavenRepo url: "https://repository.cloudera.com/artifactory/cloudera-repos"
+    mavenRepo url: "http://repo.maven.apache.org/maven2"
+}
+
+configurations {
+    hadoopProvided {
+        transitive = true
+    }
+    compile {
+        extendsFrom hadoopProvided
+    }
+}
+
+dependencies {
+    testCompile 'junit:junit:4.11'
+    compile 'org.slf4j:slf4j-api:1.6.6'
+    compile 'org.apache.hbase:hbase:0.94.6-cdh4.3.0'
+    compile 'org.zephyr:zephyr-core:0.0.1-SNAPSHOT'
+    hadoopProvided 'org.apache.hadoop:hadoop-client:2.0.0-mr1-cdh4.3.0'
+}
